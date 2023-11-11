@@ -12,7 +12,7 @@ Config.GiftItems = {
     [6] = { item = "pistol_ammo", minAmount = 1, maxAmount = 3, probability = 15 }, 
     [7] = { item = "weapon_assaultrifle", minAmount = 1, maxAmount = 1, probability = 1 }, 
     [8] = { item = "rifle_ammo", minAmount = 1, maxAmount = 2, probability = 3 }, 
-    [9] = { item = "cash", minAmount = 1000, maxAmount = 10000, probability = 150 }, 
+    [9] = { item = "cash", minAmount = 1000, maxAmount = 10000, probability = 15 }, 
     -- Add more items with their respective probabilities
 }
 
