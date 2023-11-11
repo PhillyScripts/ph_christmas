@@ -143,6 +143,8 @@ AddEventHandler('ph_christmas:client:useGift', function(source)
 
             if item.item == 'cash' then
                 QBCore.Functions.Notify('Congratulations! You received cash!', 'success')
+            elseif item.item == 'coallump' then
+                QBCore.Functions.Notify("You've been naughty and got a Lump of Coal.", 'error')
             else
                 QBCore.Functions.Notify('You received ' .. itemAmount .. 'x ' .. itemName, 'success')
                 TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items[item.item], 'add')
