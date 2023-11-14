@@ -20,8 +20,8 @@ https://discord.gg/Q8S4VYQWwB
 -santa ped (provided in folder)
 *OPTIONAL*
 Gabz XMAS Pack
-cd_dispatch
-ps-dispatch
+cd_dispatch or ps-dispatch
+
 ```
 
 ## How To Install
