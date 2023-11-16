@@ -21,6 +21,7 @@ https://discord.gg/Q8S4VYQWwB
 *OPTIONAL*
 Gabz XMAS Pack
 cd_dispatch or ps-dispatch
+ps-ui (for circle minigame)
 
 ```
 
