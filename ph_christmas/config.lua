@@ -12,11 +12,14 @@ Config.GiftItems = {
     [6] = { item = "pistol_ammo", minAmount = 1, maxAmount = 3, probability = 15 }, 
     [7] = { item = "weapon_assaultrifle", minAmount = 1, maxAmount = 1, probability = 1 }, 
     [8] = { item = "rifle_ammo", minAmount = 1, maxAmount = 2, probability = 3 }, 
-    [9] = { item = "cash", minAmount = 1000, maxAmount = 10000, probability = 15 }, 
+    [9] = { item = "cash", minAmount = 1000, maxAmount = 10000, probability = 150 }, 
     -- Add more items with their respective probabilities
 }
 
 
 Config.Cooldown = true -- set to true for cooldown on recieving gifts, false for no cooldown
-Config.CooldownTime = 24 --in hours
-Config.Dispatch = 'none' --use ps-dispatch for PS-Dispatch, use cd_dispatch for CD_Dispatch,- none for qb-police alert
+Config.CooldownTime = 0.02 --in hours
+Config.Dispatch = 'cd_dispatch' --use ps-dispatch for PS-Dispatch, use cd_dispatch for CD_Dispatch,- none for qb-police alert
+Config.minigameType = 'ps-ui' --use 'ps-ui' if using circle mingame when stealing gifts.
+Config.numberOfCircles = 5 --number of spins it takes
+Config.circleMiliseconds = 10 --miliseconds controlling how fast the circle goes (preferabkly 10-20)

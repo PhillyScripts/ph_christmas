@@ -1,7 +1,6 @@
 QBCore = exports['qb-core']:GetCoreObject()
 PlayerData = QBCore.Functions.GetPlayerData()
 
-
 local giftCooldowns = {}
 
 RegisterNetEvent('ph_christmasp:Client:giveGift')
@@ -47,9 +46,6 @@ AddEventHandler('ph_christmasp:Client:giveGift', function()
     end
 end)
 
-
-
-
 RegisterNetEvent('ph_christmasp:Client:stealGift')
 AddEventHandler('ph_christmasp:Client:stealGift', function()
     local source = source
@@ -81,22 +77,50 @@ AddEventHandler('ph_christmasp:Client:stealGift', function()
     elseif Config.Dispatch == 'none' then
         TriggerServerEvent('police:server:policeAlert', 'Suspicious Activity')
     end
-    
-    QBCore.Functions.Progressbar('gift', 'Stealing gift!!', 19000, false, false, {
-        disableMovement = true,
-        disableCarMovement = true,
-        disableMouse = false,
-        disableCombat = true,
-    }, {
-        animDict = 'anim@gangops@facility@servers@',
-        anim = 'hotwire',
-        flags = 16,
-    }, {}, {}, function()
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        TriggerServerEvent('ph_christmas:server:AddGift', "gift", 1)
 
-        QBCore.Functions.Notify('You stole a gift! Someone called the cops!')
-    end)
+    exports["rpemotes"]:EmoteCommandStart('mechanic', 1)
+
+    if Config.minigameType == 'ps-ui' then
+        exports['ps-ui']:Circle(function(success)
+            if success then
+                print("success")
+                QBCore.Functions.Progressbar('gift', 'Stealing gift!!', 19000, false, false, {
+                    disableMovement = true,
+                    disableCarMovement = true,
+                    disableMouse = false,
+                    disableCombat = true,
+                }, {
+                    animDict = 'anim@gangops@facility@servers@',
+                    anim = 'hotwire',
+                    flags = 16,
+                }, {}, {}, function()
+                    TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+                    TriggerServerEvent('ph_christmas:server:AddGift', "gift", 1)
+                    QBCore.Functions.Notify('You stole a gift! Someone called the cops!')
+                end)
+            else
+                print("fail")
+                QBCore.Functions.Notify('Failed to steal the presents!', 'error')
+                -- Clear tasks to end the animation
+                ClearPedTasks(PlayerPedId())
+            end
+        end, Config.numberOfCircles, Config.circleMiliseconds)
+    else
+        QBCore.Functions.Progressbar('gift', 'Stealing gift!!', 19000, false, false, {
+            disableMovement = true,
+            disableCarMovement = true,
+            disableMouse = false,
+            disableCombat = true,
+        }, {
+            animDict = 'anim@gangops@facility@servers@',
+            anim = 'hotwire',
+            flags = 16,
+        }, {}, {}, function()
+            TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+            TriggerServerEvent('ph_christmas:server:AddGift', "gift", 1)
+            QBCore.Functions.Notify('You stole a gift! Someone called the cops!')
+        end)
+    end
 end)
 
 
@@ -156,46 +180,3 @@ AddEventHandler('ph_christmas:client:useGift', function(source)
     end)
 end)
 
-
-
-
-
-RegisterNetEvent('ph_christmas:Client:stealPresents', function()
-    exports["rpemotes"]:EmoteCommandStart('mechanic', 1)
-    QBCore.Functions.Progressbar('abrir_vitrine', 'Stealing Presents...', 5000, false, true, {
-        disableMovement = true,
-        disableCarMovement = true,
-        disableMouse = false,
-        disableCombat = true,
-    }, {}, {}, {}, function()
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        TriggerServerEvent('ph_christmas:server:AddGift')
-    end)
-end)
-
-
-
-
-
-
-CreateThread(function()
--- Spawning Ped for store
-local ped = GetHashKey('Santaclaus')
-local pedCoords = Config.pedCoords
-RequestModel(ped)
-
-while not HasModelLoaded(ped) do
-    Citizen.Wait(0)
-end
-
-local createPed = CreatePed(1, ped, pedCoords.x, pedCoords.y, pedCoords.z, Config.pedHeading, true, false)
-SetEntityInvincible(createPed, true)
-SetEntityAsMissionEntity(createPed, true, true)
-SetBlockingOfNonTemporaryEvents(createPed, true)
-SetEntityNoCollisionEntity(createPed, true)
-SetPedCanRagdoll(createPed, false)
-SetEntityMaxSpeed(createPed, 0.0)
-TaskWarpPedIntoVehicle(createPed, 0, 0)
-
-
-end)
