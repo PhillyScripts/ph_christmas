@@ -180,3 +180,25 @@ AddEventHandler('ph_christmas:client:useGift', function(source)
     end)
 end)
 
+CreateThread(function()
+    -- Spawning Ped for store
+    local ped = GetHashKey('Santaclaus')
+    local pedCoords = Config.pedCoords
+    RequestModel(ped)
+    
+    while not HasModelLoaded(ped) do
+        Citizen.Wait(0)
+    end
+    
+    local createPed = CreatePed(1, ped, pedCoords.x, pedCoords.y, pedCoords.z, Config.pedHeading, true, false)
+    SetEntityInvincible(createPed, true)
+    SetEntityAsMissionEntity(createPed, true, true)
+    SetBlockingOfNonTemporaryEvents(createPed, true)
+    SetEntityNoCollisionEntity(createPed, true)
+    SetPedCanRagdoll(createPed, false)
+    SetEntityMaxSpeed(createPed, 0.0)
+    TaskWarpPedIntoVehicle(createPed, 0, 0)
+    
+    
+    end)
+
