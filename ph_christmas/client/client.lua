@@ -8,7 +8,6 @@ AddEventHandler('ph_christmasp:Client:giveGift', function()
     local source = source
 
     if Config.Cooldown == false then
-        -- Cooldown is not enabled, perform the gift action without checking cooldown
         QBCore.Functions.Progressbar('abrir_vitrine', 'Taking Gift', 5000, false, true, {
             disableMovement = true,
             disableCarMovement = true,
@@ -21,10 +20,9 @@ AddEventHandler('ph_christmasp:Client:giveGift', function()
         QBCore.Functions.Notify('Ho! Ho! Ho! Merry Christmas! ')
         return
     end
-
-    -- Cooldown is enabled, apply the cooldown logic
+        
     local cooldownConfig = Config.CooldownTime or 24
-    local cooldown = cooldownConfig * 60 * 60  -- Convert hours to seconds
+    local cooldown = cooldownConfig * 60 * 60 
 
     local lastGiftTime = giftCooldowns[source] or 0
 
@@ -41,7 +39,7 @@ AddEventHandler('ph_christmasp:Client:giveGift', function()
         QBCore.Functions.Notify('Ho! Ho! Ho! Merry Christmas! ')
         giftCooldowns[source] = GetGameTimer()
     else
-        local remainingHours = (lastGiftTime + cooldown * 1000 - GetGameTimer()) / 3600000  -- Convert milliseconds to hours
+        local remainingHours = (lastGiftTime + cooldown * 1000 - GetGameTimer()) / 3600000 
         QBCore.Functions.Notify('You can only give a gift once every ' .. cooldownConfig .. ' hours. Remaining: ' .. string.format("%.1f", remainingHours) .. ' hours.', 'error')
     end
 end)
@@ -50,9 +48,7 @@ RegisterNetEvent('ph_christmasp:Client:stealGift')
 AddEventHandler('ph_christmasp:Client:stealGift', function()
     local source = source
 
-    -- Check if Config.Dispatch is 'ps-dispatch'
     if Config.Dispatch == 'ps-dispatch' then
-        -- Call the export if the condition is true
         exports['ps-dispatch']:SuspiciousActivity()
     elseif Config.Dispatch == 'cd_dispatch' then
         local data = exports['cd_dispatch']:GetPlayerInfo()
@@ -101,7 +97,6 @@ AddEventHandler('ph_christmasp:Client:stealGift', function()
             else
                 print("fail")
                 QBCore.Functions.Notify('Failed to steal the presents!', 'error')
-                -- Clear tasks to end the animation
                 ClearPedTasks(PlayerPedId())
             end
         end, Config.numberOfCircles, Config.circleMiliseconds)
@@ -181,7 +176,6 @@ AddEventHandler('ph_christmas:client:useGift', function(source)
 end)
 
 CreateThread(function()
-    -- Spawning Ped for store
     local ped = GetHashKey('Santaclaus')
     local pedCoords = Config.pedCoords
     RequestModel(ped)
@@ -201,4 +195,5 @@ CreateThread(function()
     
     
     end)
+
 
