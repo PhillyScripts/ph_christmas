@@ -1,7 +1,7 @@
 CreateThread(function()
 
    
-    exports['qb-target']:AddTargetModel('Santaclaus', { -- This defines the models, can be a string or a table
+    exports['qb-target']:AddTargetModel('Santaclaus', {
     options = {
         {  
         event = "ph_christmasp:Client:giveGift",
@@ -56,5 +56,6 @@ exports['qb-target']:AddBoxZone("stealpresent3", vector3(1049.62, -642.29, 56.49
     },
     distance = 1.5
 })
+
 
 end)
